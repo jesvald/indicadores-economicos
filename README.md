@@ -26,9 +26,8 @@ Los datos económicos son consumidos en tiempo real desde la API pública de **[
 Para visualizar la aplicación:
 1.  Clona este repositorio:
     ```bash
-    git clone https://github.com/tu-usuario/indicadores-economicos.git
+    git clone https://github.com/jesvald/indicadores-economicos.git
     ```
-    (Reemplaza `tu-usuario` con tu nombre de usuario de GitHub si es diferente)
 2.  Navega al directorio del proyecto:
     ```bash
     cd indicadores-economicos
