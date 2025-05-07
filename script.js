@@ -457,7 +457,7 @@ const EconomicIndicatorsApp = (() => {
                         options: {
                             responsive: true,
                             maintainAspectRatio: false,
-                            spanGaps: true, // Connect lines over null data points
+                            spanGaps: true, 
                             animation: {
                                 duration: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 800
                             },
@@ -465,31 +465,31 @@ const EconomicIndicatorsApp = (() => {
                                 x: {
                                     title: {
                                         display: true,
-                                        text: 'Día del Año (Mes-Día)',
+                                        text: 'MES',
                                         font: { size: 14 }
                                     },
                                     ticks: {
-                                        maxTicksLimit: 12, // Show a reasonable number of ticks
+                                        maxTicksLimit: 12, 
                                         callback: function(value, index, values) {
                                             const label = this.getLabelForValue(value);
-                                            if (label && label.endsWith('-01')) { // If it's the first day of the month.
+                                            if (label && label.endsWith('-01')) { 
                                                 const monthIndex = parseInt(label.substring(0, 2)) - 1;
                                                 const monthNames = ["Ene", "Feb", "Mar", "Abr", "May", "Jun",
                                                                 "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
                                                 return monthNames[monthIndex];
                                             }
-                                            return null; // Don't show other labels to avoid clutter
+                                            return null; 
                                         },
-                                        autoSkipPadding: 15 // Add padding to auto-skipped ticks
+                                        autoSkipPadding: 15 
                                     }
                                 },
                                 y: {
                                     title: {
                                         display: true,
-                                        text: `Valor (${indicator ? indicator.format : ''})`,
+                                        text: `Valor (${indicator ? indicator.format : ''}CLP)`,
                                         font: { size: 14 }
                                     },
-                                    beginAtZero: false, // Adjust based on data, don't always start at zero
+                                    beginAtZero: false, 
                                     ticks: {
                                         callback: function(value) {
                                             return utils.formatValue(value, indicator ? indicator.format : '');
@@ -502,7 +502,7 @@ const EconomicIndicatorsApp = (() => {
                                     tension: elements.smoothLinesCheckbox && elements.smoothLinesCheckbox.checked ? 0.4 : 0
                                 }
                             },
-                            plugins: chartController.chartPluginsConfig // Use the initialized config
+                            plugins: chartController.chartPluginsConfig 
                         }
                     });
 
@@ -524,22 +524,18 @@ const EconomicIndicatorsApp = (() => {
             datasets.forEach(dataset => {
                 let lastKnownValue = null; // Almacena el último valor no nulo encontrado.
 
-                // Forward fill (initial pass for leading nulls if any start after a known value)
                 for (let i = 0; i < dataset.data.length; i++) {
                     if (dataset.data[i] !== null) {
                         lastKnownValue = dataset.data[i];
                     } else if (lastKnownValue !== null) {
-                        // dataset.data[i] = lastKnownValue; // Optional: simple forward fill
                     }
                 }
 
-                // Interpolate for internal gaps
                 lastKnownValue = null;
                 for (let i = 0; i < dataset.data.length; i++) {
                     if (dataset.data[i] !== null) {
                         lastKnownValue = dataset.data[i];
                     } else {
-                        // Find the next known value
                         let nextKnownValue = null;
                         let gapEndIndex = i;
                         for (let j = i + 1; j < dataset.data.length; j++) {
@@ -550,19 +546,17 @@ const EconomicIndicatorsApp = (() => {
                             }
                         }
 
-                        // If both last and next known values exist, interpolate
                         if (lastKnownValue !== null && nextKnownValue !== null) {
-                            const gapSize = gapEndIndex - (i - 1); // Number of steps in the gap
+                            const gapSize = gapEndIndex - (i - 1); 
                             const step = (nextKnownValue - lastKnownValue) / gapSize;
 
                             for (let k = 0; k < (gapEndIndex - i); k++) {
                                 dataset.data[i + k] = lastKnownValue + step * (k + 1);
                             }
-                            i = gapEndIndex -1; // Move index to the end of the filled gap
-                        } else if (lastKnownValue !== null) { // If only last known value (trailing nulls)
-                             dataset.data[i] = lastKnownValue; // Fill with last known value
+                            i = gapEndIndex -1; 
+                        } else if (lastKnownValue !== null) { 
+                             dataset.data[i] = lastKnownValue; 
                         }
-                        // If only next known value (leading nulls), or no known values, leave as null or handle as needed
                     }
                 }
             });
@@ -652,7 +646,6 @@ const EconomicIndicatorsApp = (() => {
             if (validResults.length === 0) return []; // No hay datos para calcular.
 
             // Usa los datos del año más reciente con información.
-            // Data results are typically [oldest_year_data, ..., latest_year_data]
             const latestYearData = validResults[validResults.length - 1];
 
             if (latestYearData.length === 0) return [];
