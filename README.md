@@ -3,3 +3,6 @@ Pequeña aplicación web para comparar indicadores económicos de Chile consumie
 Vanilla Js, Html y CSS. 
 Usa Chart.js para los gráficos y Font Awesome para los íconos.
 
+[mindicador.cl](https://mindicador.cl/)
+[Revisa mi portafolio](https://www.jesuschausu.com/)
+
