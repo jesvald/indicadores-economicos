@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indicadores Económicos de Chile</title>
+
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" as="script">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </noscript>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Indicadores Económicos de Chile</h1>
+            <p class="description">
+                Visualiza y compara la evolución diaria de los principales indicadores económicos de Chile durante los últimos años.
+                Los datos se alinean por día del año para una comparación directa entre períodos.
+            </p>
+        </div>
+
+        <div class="tabs-container">
+            <div class="tabs" id="indicator-tabs" role="tablist">
+                <!-- Tabs will be generated dynamically -->
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="years-control">
+                <label class="years-label" for="years-select">Comparar últimos:</label>
+                <select id="years-select" class="years-select">
+                    <option value="3">3 años</option>
+                    <option value="5" selected>5 años</option>
+                    <option value="7">7 años</option>
+                    <option value="10">10 años</option>
+                </select>
+                <div class="tooltip">
+                     <button type="button" aria-describedby="tooltip-years" class="tooltip-icon-button">
+                        <i class="fas fa-info-circle tooltip-icon"></i>
+                    </button>
+                    <span class="tooltip-text" role="tooltip" id="tooltip-years">Selecciona cuántos años deseas comparar en el gráfico.</span>
+                </div>
+            </div>
+
+            <div class="chart-options">
+                <label class="chart-option">
+                    <input type="checkbox" id="smooth-lines" checked>
+                    <span>Suavizar líneas</span>
+                </label>
+                <label class="chart-option">
+                    <input type="checkbox" id="show-points">
+                    <span>Mostrar puntos</span>
+                </label>
+            </div>
+        </div>
+
+        <div id="skeleton-container" class="skeleton-container">
+            <div class="skeleton-chart"></div>
+
+            <div class="skeleton-stats">
+                <div class="skeleton-stat-card">
+                    <div class="skeleton-stat-title"></div>
+                    <div class="skeleton-stat-value"></div>
+                    <div class="skeleton-stat-subtext"></div>
+                </div>
+                <div class="skeleton-stat-card">
+                    <div class="skeleton-stat-title"></div>
+                    <div class="skeleton-stat-value"></div>
+                    <div class="skeleton-stat-subtext"></div>
+                </div>
+                <div class="skeleton-stat-card">
+                    <div class="skeleton-stat-title"></div>
+                    <div class="skeleton-stat-value"></div>
+                    <div class="skeleton-stat-subtext"></div>
+                </div>
+                <div class="skeleton-stat-card">
+                    <div class="skeleton-stat-title"></div>
+                    <div class="skeleton-stat-value"></div>
+                    <div class="skeleton-stat-subtext"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="error-container" class="error-message" style="display: none;">
+            Error al cargar los datos. Por favor, inténtalo más tarde.
+        </div>
+
+        <div class="chart-container" style="display: none;" role="tabpanel" id="chart-panel">
+            <div class="chart-header">
+                <div class="chart-title" id="chart-title">Gráfico de Indicadores</div>
+            </div>
+            <canvas id="indicator-chart" role="img" aria-label="Gráfico de la evolución del indicador seleccionado"></canvas>
+        </div>
+
+        <div class="chart-stats" id="stats-container">
+        </div>
+
+        <div class="footer">
+            <div class="data-source">
+                <span>Datos obtenidos de</span>
+                <a href="https://mindicador.cl/" target="_blank" rel="noopener noreferrer">mindicador.cl</a>
+            </div>
+            <div class="data-source">
+                <span>Desarrollado por</span>
+                <a href="https://www.jesuschausu.com/" target="_blank">Jesús Chausu</a>
+            </div>
+            <div>
+                <span>Última actualización: <span id="last-update">Cargando...</span></span>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" defer></script>
+    <script src="script.js" defer></script>
+</body>
+</html>
